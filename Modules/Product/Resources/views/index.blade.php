@@ -9,7 +9,7 @@
                 <a class="btn btn-success" href="{{ route('product.create') }}"> Create New Product</a>
             </div>
             <div class="pull-right" style="margin-left:20px">
-                <a class="btn btn-danger" href="{{ route('category.index') }}"> Change to  Category</a>
+                <a class="btn btn-danger" href="{{ route('category.index') }}"> Change To  Category</a>
             </div>
         </div>
     </div>

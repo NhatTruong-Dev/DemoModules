@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return view('post::index');
+        return view('post::comment.index');
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Product\Entities\Product;
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
@@ -16,10 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::paginate(5);
 
-        return view('product::index',compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('product::index', compact('products'));
     }
 
     /**
@@ -40,15 +40,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+     $request->validate([
             'name' => 'required',
             'detail' => 'required',
+        ], [
+            'name.require' => 'Tên không được để trống',
+            'detail.require' => 'Chi tiết không được để trống'
         ]);
 
         Product::create($request->all());
 
-        return redirect()->route('product::index')
-            ->with('success','Product created successfully.');
+        return redirect()->route('product.index')
+            ->with('success', 'Product created successfully.');
     }
 
     /**
@@ -59,7 +62,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product::show',compact('product'));
+        return view('product::show', compact('product'));
     }
 
     /**
@@ -70,7 +73,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product::edit',compact('product'));
+        return view('product::edit', compact('product'));
     }
 
     /**
@@ -89,8 +92,8 @@ class ProductController extends Controller
 
         $product->update($request->all());
 
-        return redirect()->route('product::index')
-            ->with('success','Product updated successfully');
+        return redirect()->route('product.index')
+            ->with('success', 'Product updated successfully');
     }
 
     /**
@@ -103,7 +106,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('product::index')
-            ->with('success','Product deleted successfully');
+        return redirect()->route('product.index')
+            ->with('success', 'Product deleted successfully');
     }
 }

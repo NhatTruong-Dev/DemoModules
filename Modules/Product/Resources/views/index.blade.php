@@ -4,10 +4,12 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Laravel 8 CRUD Example from scratch - ItSolutionStuff.com</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+                <a class="btn btn-success" href="{{ route('product.create') }}"> Create New Product</a>
+            </div>
+            <div class="pull-right" style="margin-left:20px">
+                <a class="btn btn-danger" href="{{ route('category.index') }}"> Change to  Category</a>
             </div>
         </div>
     </div>
@@ -27,15 +29,15 @@
         </tr>
         @foreach ($products as $product)
             <tr>
-                <td>{{ ++$i }}</td>
+                <td>{{ $loop->iteration }}  </td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->detail }}</td>
                 <td>
-                    <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                    <form action="{{ route('product.destroy',$product->id) }}" method="POST">
 
-                        <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
+                        <a class="btn btn-info" href="{{ route('product.show',$product->id) }}">Show</a>
 
-                        <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                        <a class="btn btn-primary" href="{{ route('product.edit',$product->id) }}">Edit</a>
 
                         @csrf
                         @method('DELETE')
@@ -46,7 +48,6 @@
             </tr>
         @endforeach
     </table>
-
     {!! $products->links() !!}
 
 @endsection

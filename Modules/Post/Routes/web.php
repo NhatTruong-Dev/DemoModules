@@ -11,6 +11,12 @@
 |
 */
 
+
+
+
 Route::prefix('post')->group(function() {
     Route::get('/', 'PostController@index');
+});
+Route::prefix('comment')->group(function() {
+    Route::get('/', 'CommentController@index');
 });

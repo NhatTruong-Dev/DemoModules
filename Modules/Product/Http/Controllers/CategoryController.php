@@ -2,9 +2,12 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Product\Entities\Category;
 
 class CategoryController extends Controller
 {
@@ -16,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = DB::table('category')->get();
+        $categories =Category::all();
         return view('product::category.index')->with('categories', $categories);
     }
 
